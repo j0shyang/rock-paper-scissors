@@ -18,30 +18,35 @@ function playRound(playerSelection, computerSelection) {
     console.log(`You chose: ${playerSelection}`);
     console.log(`Computer chose: ${computerSelection}`)
 
+    let playerPoints = 0;
+    let computerPoints = 0;
+
     switch (playerSelection + computerSelection) {
         // same choice
         case "RockRock":
         case "PaperPaper":
         case "ScissorsScissors":
-            return "It's a tie!"
+            return "It's a tie!\n" + "Your points: " + playerPoints + "\nComputer points: " + computerPoints;
             break;
         // player wins
         case "RockScissors":
         case "PaperRock":
         case "ScissorsPaper":
-            return `You won! ${playerSelection} beats ${computerSelection}!`
+            playerPoints++;
+            return "You won!\n" + "Your points: " + playerPoints + "\nComputer points: " + computerPoints;
             break;
         // computer wins
         case "RockPaper":
         case "PaperScissors":
         case "ScissorsRock":
-            return `You lose! ${computerSelection} beats ${playerSelection}!`
+            computerPoints++;
+            return "You lose!\n" + "Your points: " + playerPoints + "\nComputer points: " + computerPoints;
         default:
             return "Your choice does not exist!";
     }
 }
 
-const playerSelection = "ROCK";
-const computerSelection = getComputerChoice();
+let playerSelection = prompt("Enter a choice [Rock, Paper, Scissors]:");
+let computerSelection = getComputerChoice();
 
 console.log(playRound(playerSelection.toLowerCase(), computerSelection));
