@@ -1,3 +1,5 @@
+import dedent from 'https://cdn.skypack.dev/dedent';
+
 function getComputerChoice() {
     let choice = Math.floor((Math.random() * 3) + 1);
 
@@ -26,27 +28,27 @@ function playRound(playerSelection, computerSelection) {
         case "RockRock":
         case "PaperPaper":
         case "ScissorsScissors":
-            return "It's a tie!" +
-                    "\nYour points: " + playerPoints +
-                    "\nComputer points: " + computerPoints;
+            return dedent(`It's a tie!
+                        Your points: ${playerPoints}
+                        Computer points: ${computerPoints}`);
             break;
         // player wins
         case "RockScissors":
         case "PaperRock":
         case "ScissorsPaper":
             playerPoints++;
-            return "You won! " + playerSelection + " beats " + computerSelection + "!" +
-                    "\nYour points: " + playerPoints +
-                    "\nComputer points: " + computerPoints;
+            return dedent(`You won! ${playerSelection} beats ${computerSelection}!
+                        Your points: ${playerPoints}
+                        Computer points: ${computerPoints}`);
             break;
         // computer wins
         case "RockPaper":
         case "PaperScissors":
         case "ScissorsRock":
             computerPoints++;
-            return "You lose! " + computerSelection + " beats " + playerSelection + "!" +
-                    "\nYour points: " + playerPoints +
-                    "\nComputer points: " + computerPoints;
+            return dedent(`You lose! ${computerSelection} beats ${playerSelection}!
+                        Your points: ${playerPoints}
+                        Computer points: ${computerPoints}`);
         default:
             return "Your choice does not exist!";
     }
