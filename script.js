@@ -4,18 +4,17 @@ function getComputerChoice() {
     let choice = Math.floor((Math.random() * 3) + 1);
 
     if (choice === 1) {
-        return "rock";
+        return "Rock";
     } else if (choice === 2) {
-        return "paper";
+        return "Paper";
     } else {
-        return "scissors";
+        return "Scissors";
     }
 }
 
 function playRound(playerSelection, computerSelection) {
     // capitalize first letter of player and computer selection
     playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.toLowerCase().slice(1);
-    computerSelection = computerSelection.charAt(0).toUpperCase() + computerSelection.toLowerCase().slice(1);
 
     console.log(`You chose: ${playerSelection}`);
     console.log(`Computer chose: ${computerSelection}`)
@@ -28,7 +27,7 @@ function playRound(playerSelection, computerSelection) {
         case "RockRock":
         case "PaperPaper":
         case "ScissorsScissors":
-            return dedent(`It's a tie!
+            return dedent(`It's a tie! Try again!
                         Your points: ${playerPoints}
                         Computer points: ${computerPoints}`);
             break;
@@ -50,11 +49,23 @@ function playRound(playerSelection, computerSelection) {
                         Your points: ${playerPoints}
                         Computer points: ${computerPoints}`);
         default:
-            return "Your choice does not exist!";
+            return "Your choice does not exist! Try again!";
     }
 }
 
-let playerSelection = prompt("Enter a choice [Rock, Paper, Scissors]:");
-let computerSelection = getComputerChoice();
+function game() {
+    let playerSelection = prompt("Enter a choice [Rock, Paper, Scissors]:");
+    let computerSelection = getComputerChoice();
+    let result;
+    
+    result = playRound(playerSelection, computerSelection);
+    console.log(result);
 
-console.log(playRound(playerSelection.toLowerCase(), computerSelection));
+    while (result.includes("tie") || result.includes("not exist")) {
+        playerSelection = prompt("Enter another choice [Rock, Paper, Scissors]:");
+        result = playRound(playerSelection, computerSelection);
+        console.log(result);
+    }
+}
+
+game();
