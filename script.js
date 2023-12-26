@@ -11,6 +11,7 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
+    // capitalize first letter of player and computer selection
     playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.toLowerCase().slice(1);
     computerSelection = computerSelection.charAt(0).toUpperCase() + computerSelection.toLowerCase().slice(1);
 
