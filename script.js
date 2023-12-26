@@ -26,21 +26,27 @@ function playRound(playerSelection, computerSelection) {
         case "RockRock":
         case "PaperPaper":
         case "ScissorsScissors":
-            return "It's a tie!\n" + "Your points: " + playerPoints + "\nComputer points: " + computerPoints;
+            return "It's a tie!" +
+                    "\nYour points: " + playerPoints +
+                    "\nComputer points: " + computerPoints;
             break;
         // player wins
         case "RockScissors":
         case "PaperRock":
         case "ScissorsPaper":
             playerPoints++;
-            return "You won!\n" + "Your points: " + playerPoints + "\nComputer points: " + computerPoints;
+            return "You won! " + playerSelection + " beats " + computerSelection + "!" +
+                    "\nYour points: " + playerPoints +
+                    "\nComputer points: " + computerPoints;
             break;
         // computer wins
         case "RockPaper":
         case "PaperScissors":
         case "ScissorsRock":
             computerPoints++;
-            return "You lose!\n" + "Your points: " + playerPoints + "\nComputer points: " + computerPoints;
+            return "You lose! " + computerSelection + " beats " + playerSelection + "!" +
+                    "\nYour points: " + playerPoints +
+                    "\nComputer points: " + computerPoints;
         default:
             return "Your choice does not exist!";
     }
