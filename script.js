@@ -17,7 +17,8 @@ function getComputerChoice() {
 
 function playRound(playerSelection, computerSelection) {
     // capitalize first letter of player and computer selection
-    playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.toLowerCase().slice(1);
+    playerSelection = playerSelection.charAt(0).toUpperCase() + 
+                      playerSelection.toLowerCase().slice(1);
 
     console.log(`You chose: ${playerSelection}`);
     console.log(`Computer chose: ${computerSelection}`)
