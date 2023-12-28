@@ -1,4 +1,7 @@
-import dedent from 'https://cdn.skypack.dev/dedent';
+import dedent from 'https://cdn.skypack.dev/pin/dedent@v1.5.1-Uhedp8QImbFuEy3LEoVg/mode=imports/optimized/dedent.js';
+
+let playerPoints = 0;
+let computerPoints = 0;
 
 function getComputerChoice() {
     let choice = Math.floor((Math.random() * 3) + 1);
@@ -19,9 +22,6 @@ function playRound(playerSelection, computerSelection) {
     console.log(`You chose: ${playerSelection}`);
     console.log(`Computer chose: ${computerSelection}`)
 
-    let playerPoints = 0;
-    let computerPoints = 0;
-
     switch (playerSelection + computerSelection) {
         // same choice
         case "RockRock":
@@ -29,7 +29,8 @@ function playRound(playerSelection, computerSelection) {
         case "ScissorsScissors":
             return dedent(`It's a tie! Try again!
                         Your points: ${playerPoints}
-                        Computer points: ${computerPoints}`);
+                        Computer points: ${computerPoints}
+                        ---------------------------------------`);
             break;
         // player wins
         case "RockScissors":
@@ -38,7 +39,8 @@ function playRound(playerSelection, computerSelection) {
             playerPoints++;
             return dedent(`You won! ${playerSelection} beats ${computerSelection}!
                         Your points: ${playerPoints}
-                        Computer points: ${computerPoints}`);
+                        Computer points: ${computerPoints}
+                        ---------------------------------------`);
             break;
         // computer wins
         case "RockPaper":
@@ -47,24 +49,31 @@ function playRound(playerSelection, computerSelection) {
             computerPoints++;
             return dedent(`You lose! ${computerSelection} beats ${playerSelection}!
                         Your points: ${playerPoints}
-                        Computer points: ${computerPoints}`);
+                        Computer points: ${computerPoints}
+                        ---------------------------------------`);
         default:
-            return "Your choice does not exist! Try again!";
+            return dedent(`Your choice does not exist! Try again!
+                        ---------------------------------------`);
     }
 }
 
 function game() {
-    let playerSelection = prompt("Enter a choice [Rock, Paper, Scissors]:");
-    let computerSelection = getComputerChoice();
-    let result;
+    while (playerPoints < 3 && computerPoints < 3) {
+        // prompt for user input
+        let playerSelection = prompt("Enter a choice [Rock, Paper, Scissors]:");
+        let computerSelection = getComputerChoice();
+        let result;
     
-    result = playRound(playerSelection, computerSelection);
-    console.log(result);
-
-    while (result.includes("tie") || result.includes("not exist")) {
-        playerSelection = prompt("Enter another choice [Rock, Paper, Scissors]:");
         result = playRound(playerSelection, computerSelection);
         console.log(result);
+    
+        // if tie or selection does not exist
+        while (result.includes("tie") || result.includes("not exist")) {
+            computerSelection = getComputerChoice();
+            playerSelection = prompt("Enter another choice [Rock, Paper, Scissors]:");
+            result = playRound(playerSelection, computerSelection);
+            console.log(result);
+        }
     }
 }
 
