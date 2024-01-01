@@ -1,4 +1,4 @@
-import dedent from 'https://cdn.skypack.dev/pin/dedent@v1.5.1-Uhedp8QImbFuEy3LEoVg/mode=imports/optimized/dedent.js';
+// import dedent from 'https://cdn.skypack.dev/pin/dedent@v1.5.1-Uhedp8QImbFuEy3LEoVg/mode=imports/optimized/dedent.js';
 
 let playerPoints = 0;
 let computerPoints = 0;
@@ -20,41 +20,43 @@ function playRound(playerSelection, computerSelection) {
     playerSelection = playerSelection.charAt(0).toUpperCase() + 
                       playerSelection.toLowerCase().slice(1);
 
-    console.log(`You chose: ${playerSelection}`);
-    console.log(`Computer chose: ${computerSelection}`)
-
     switch (playerSelection + computerSelection) {
         // same choice
         case "RockRock":
         case "PaperPaper":
         case "ScissorsScissors":
-            return dedent(`It's a tie! Try again!
-                        Your points: ${playerPoints}
-                        Computer points: ${computerPoints}
-                        ---------------------------------------`);
+            return `You chose: ${playerSelection}<br>
+                    Computer chose: ${computerSelection}<br>
+                    --------------------------------------<br>
+                    It's a tie! Try again!<br>
+                    Your points: ${playerPoints}<br>
+                    Computer points: ${computerPoints}`;
             break;
         // player wins
         case "RockScissors":
         case "PaperRock":
         case "ScissorsPaper":
             playerPoints++;
-            return dedent(`You won! ${playerSelection} beats ${computerSelection}!
-                        Your points: ${playerPoints}
-                        Computer points: ${computerPoints}
-                        ---------------------------------------`);
+            return `You chose: ${playerSelection}<br>
+                    Computer chose: ${computerSelection}<br>
+                    --------------------------------------<br>
+                    You won! ${playerSelection} beats ${computerSelection}!<br>
+                    Your points: ${playerPoints}<br>
+                    Computer points: ${computerPoints}`;
             break;
         // computer wins
         case "RockPaper":
         case "PaperScissors":
         case "ScissorsRock":
             computerPoints++;
-            return dedent(`You lose! ${computerSelection} beats ${playerSelection}!
-                        Your points: ${playerPoints}
-                        Computer points: ${computerPoints}
-                        ---------------------------------------`);
+            return `You chose: ${playerSelection}<br>
+                    Computer chose: ${computerSelection}<br>
+                    --------------------------------------<br>
+                    You lose! ${computerSelection} beats ${playerSelection}!<br>
+                    Your points: ${playerPoints}<br>
+                    Computer points: ${computerPoints}`;
         default:
-            return dedent(`Your choice does not exist! Try again!
-                        ---------------------------------------`);
+            return `Your choice does not exist! Try again!`;
     }
 }
 
@@ -82,31 +84,36 @@ function playRound(playerSelection, computerSelection) {
 
 // ----------------------------------- JavaScript DOM -----------------------------------
 
-let buttons = document.querySelector('.buttons');
+let result = document.querySelector("#result");
+let selectionBtns = document.querySelector("#selection-btns");
 const rockBtn = document.createElement("button");
 const paperBtn = document.createElement("button");
 const scissorsBtn = document.createElement("button");
 
 rockBtn.classList.add("rock");
 rockBtn.textContent = "Rock";
-
-rockBtn.addEventListener('click', () => {
-    console.log(playRound("rock", getComputerChoice()));
-});
+selectionBtns.appendChild(rockBtn);
 
 paperBtn.classList.add("paper");
 paperBtn.textContent = "Paper";
-
-paperBtn.addEventListener('click', () => {
-    console.log(playRound("paper", getComputerChoice()));
-});
+selectionBtns.appendChild(paperBtn);
 
 scissorsBtn.classList.add("scissors");
 scissorsBtn.textContent = "Scissors";
-scissorsBtn.addEventListener('click', () => {
-    console.log(playRound("scissors", getComputerChoice()));
-});
+selectionBtns.appendChild(scissorsBtn);
 
-buttons.appendChild(rockBtn);
-buttons.appendChild(paperBtn);
-buttons.appendChild(scissorsBtn);
+selectionBtns.addEventListener("click", event => {
+    let target = event.target;
+
+    switch (target.className) {
+        case "rock":
+            result.innerHTML = playRound("rock", getComputerChoice());
+            break;
+        case "paper":
+            result.innerHTML = playRound("paper", getComputerChoice());
+            break;
+        case "scissors":
+            result.innerHTML = playRound("scissors", getComputerChoice());
+            break;
+    }
+})
