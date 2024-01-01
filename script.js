@@ -58,24 +58,55 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function game() {
-    while (playerPoints < 3 && computerPoints < 3) {
-        // prompt for user input
-        let playerSelection = prompt("Enter a choice [Rock, Paper, Scissors]:");
-        let computerSelection = getComputerChoice();
-        let result;
+// function game() {
+//     while (playerPoints < 3 && computerPoints < 3) {
+//         // prompt for user input
+//         let playerSelection = prompt("Enter a choice [Rock, Paper, Scissors]:");
+//         let computerSelection = getComputerChoice();
+//         let result;
     
-        result = playRound(playerSelection, computerSelection);
-        console.log(result);
+//         result = playRound(playerSelection, computerSelection);
+//         console.log(result);
     
-        // if tie or selection does not exist
-        while (result.includes("tie") || result.includes("not exist")) {
-            computerSelection = getComputerChoice();
-            playerSelection = prompt("Enter another choice [Rock, Paper, Scissors]:");
-            result = playRound(playerSelection, computerSelection);
-            console.log(result);
-        }
-    }
-}
+//         // if tie or selection does not exist
+//         while (result.includes("tie") || result.includes("not exist")) {
+//             computerSelection = getComputerChoice();
+//             playerSelection = prompt("Enter another choice [Rock, Paper, Scissors]:");
+//             result = playRound(playerSelection, computerSelection);
+//             console.log(result);
+//         }
+//     }
+// }
 
-game();
+// game();
+
+// ----------------------------------- JavaScript DOM -----------------------------------
+
+let buttons = document.querySelector('.buttons');
+const rockBtn = document.createElement("button");
+const paperBtn = document.createElement("button");
+const scissorsBtn = document.createElement("button");
+
+rockBtn.classList.add("rock");
+rockBtn.textContent = "Rock";
+
+rockBtn.addEventListener('click', () => {
+    console.log(playRound("rock", getComputerChoice()));
+});
+
+paperBtn.classList.add("paper");
+paperBtn.textContent = "Paper";
+
+paperBtn.addEventListener('click', () => {
+    console.log(playRound("paper", getComputerChoice()));
+});
+
+scissorsBtn.classList.add("scissors");
+scissorsBtn.textContent = "Scissors";
+scissorsBtn.addEventListener('click', () => {
+    console.log(playRound("scissors", getComputerChoice()));
+});
+
+buttons.appendChild(rockBtn);
+buttons.appendChild(paperBtn);
+buttons.appendChild(scissorsBtn);
