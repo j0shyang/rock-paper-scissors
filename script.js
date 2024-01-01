@@ -1,5 +1,3 @@
-// import dedent from 'https://cdn.skypack.dev/pin/dedent@v1.5.1-Uhedp8QImbFuEy3LEoVg/mode=imports/optimized/dedent.js';
-
 let playerPoints = 0;
 let computerPoints = 0;
 
@@ -60,28 +58,6 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-// function game() {
-//     while (playerPoints < 3 && computerPoints < 3) {
-//         // prompt for user input
-//         let playerSelection = prompt("Enter a choice [Rock, Paper, Scissors]:");
-//         let computerSelection = getComputerChoice();
-//         let result;
-    
-//         result = playRound(playerSelection, computerSelection);
-//         console.log(result);
-    
-//         // if tie or selection does not exist
-//         while (result.includes("tie") || result.includes("not exist")) {
-//             computerSelection = getComputerChoice();
-//             playerSelection = prompt("Enter another choice [Rock, Paper, Scissors]:");
-//             result = playRound(playerSelection, computerSelection);
-//             console.log(result);
-//         }
-//     }
-// }
-
-// game();
-
 // ----------------------------------- JavaScript DOM -----------------------------------
 
 let result = document.querySelector("#result");
@@ -89,6 +65,7 @@ let selectionBtns = document.querySelector("#selection-btns");
 const rockBtn = document.createElement("button");
 const paperBtn = document.createElement("button");
 const scissorsBtn = document.createElement("button");
+const resetBtn = document.createElement("button");
 
 rockBtn.classList.add("rock");
 rockBtn.textContent = "Rock";
@@ -101,6 +78,20 @@ selectionBtns.appendChild(paperBtn);
 scissorsBtn.classList.add("scissors");
 scissorsBtn.textContent = "Scissors";
 selectionBtns.appendChild(scissorsBtn);
+
+resetBtn.classList.add("reset");
+resetBtn.textContent = "Reset Game";
+selectionBtns.appendChild(resetBtn);
+
+function disableBtns() {
+    rockBtn.disabled = true;
+    paperBtn.disabled = true;
+    scissorsBtn.disabled = true;
+}
+
+function resetGame() {
+
+}
 
 selectionBtns.addEventListener("click", event => {
     let target = event.target;
@@ -116,4 +107,23 @@ selectionBtns.addEventListener("click", event => {
             result.innerHTML = playRound("scissors", getComputerChoice());
             break;
     }
+
+    if (playerPoints === 5) {
+        result.textContent = "You've reached 5 points. You're the winner!";
+        disableBtns();
+    } else if (computerPoints === 5) {
+        result.textContent = "Computer reached 5 points. You've lost the game!"
+        disableBtns();
+    }
+})
+
+resetBtn.addEventListener("click", event => {
+    playerPoints = 0;
+    computerPoints = 0;
+
+    rockBtn.disabled = false;
+    paperBtn.disabled = false;
+    scissorsBtn.disabled = false;
+
+    result.textContent = "";
 })
